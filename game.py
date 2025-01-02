@@ -51,7 +51,7 @@ menuThingImageName = "./images/menuThing.png"
 
 #sounds
 pygame.mixer.init()
-#clickSound = pygame.mixer.Sound("./sounds/click.mp3")
+clickSound = pygame.mixer.Sound("./sounds/click.mp3")
 pygame.mixer.music.load("./sounds/02 - This Land.mp3") 
 pygame.mixer.music.play(-1,0.0)
 
@@ -153,6 +153,7 @@ def HandleInput(running):
                         pygame.mixer.music.stop()
                         pygame.mixer.music.load("./sounds/15 - Bonus Stage 2.mp3")
                         pygame.mixer.music.play(-1,0.0) 
+                        pygame.mixer.Sound.play(clickSound)
                 
                 if event.key == pygame.K_RETURN and menuPos == 2 or event.key == pygame.K_ESCAPE:
                     #Time to quit!
@@ -167,6 +168,8 @@ def HandleInput(running):
                         menuPos = 1
                         menuThingYVal = MENU_Y_POS_1
                         
+                    pygame.mixer.Sound.play(clickSound)
+
     elif(gameState == TOSSING_BUGS):
 
         for event in pygame.event.get():
