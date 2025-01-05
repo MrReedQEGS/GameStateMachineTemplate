@@ -36,7 +36,7 @@ SCREEN_HEIGHT = 400
 
 COL_WHITE = (255,255,255)
 
-title = "BUG TOSS"
+title = "BUG GAME"
 
 # create the display surface object
 # of specific dimension.
@@ -50,10 +50,13 @@ alphabetImageName = "./images/Letters.png"
 menuThingImageName = "./images/menuThing.png"
 
 #sounds
-pygame.mixer.init()
-clickSound = pygame.mixer.Sound("./sounds/click.mp3")
-pygame.mixer.music.load("./sounds/02 - This Land.mp3") 
-pygame.mixer.music.play(-1,0.0)
+clickSound = None
+SOUND_ALLOWED = False
+if(SOUND_ALLOWED):
+    pygame.mixer.init()
+    clickSound = pygame.mixer.Sound("./sounds/click.mp3")
+    pygame.mixer.music.load("./sounds/02 - This Land.mp3") 
+    pygame.mixer.music.play(-1,0.0)
 
 running = True
 MAIN_MENU = 1
@@ -150,10 +153,11 @@ def HandleInput(running):
                 
                 if event.key == pygame.K_RETURN and menuPos == 1:
                         gameState = TOSSING_BUGS
-                        pygame.mixer.music.stop()
-                        pygame.mixer.music.load("./sounds/15 - Bonus Stage 2.mp3")
-                        pygame.mixer.music.play(-1,0.0) 
-                        pygame.mixer.Sound.play(clickSound)
+                        if(SOUND_ALLOWED):
+                            pygame.mixer.music.stop()
+                            pygame.mixer.music.load("./sounds/15 - Bonus Stage 2.mp3")
+                            pygame.mixer.music.play(-1,0.0) 
+                            pygame.mixer.Sound.play(clickSound)
                 
                 if event.key == pygame.K_RETURN and menuPos == 2 or event.key == pygame.K_ESCAPE:
                     #Time to quit!
@@ -184,9 +188,11 @@ def HandleInput(running):
                     print("left pressed")
                 if event.key == pygame.K_ESCAPE:
                         gameState = MAIN_MENU
-                        pygame.mixer.music.stop()
-                        pygame.mixer.music.load("./sounds/02 - This Land.mp3") 
-                        pygame.mixer.music.play(-1,0.0)
+                        
+                        if(SOUND_ALLOWED): 
+                            pygame.mixer.music.stop()
+                            pygame.mixer.music.load("./sounds/02 - This Land.mp3") 
+                            pygame.mixer.music.play(-1,0.0)
                 
            
     return running
